@@ -1,5 +1,6 @@
 // Define Card class
 class Card {
+    // properties = suit and value
     constructor(suit, value) {
         this.suit = suit;
         this.value = value;
@@ -8,6 +9,8 @@ class Card {
 
 // Define Deck class
 class Deck {
+    // properties = array that represents the deck of cards
+    // Method: Constructor = initializes the deck of cards
     constructor() {
         this.cards = [];
         const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
@@ -20,13 +23,15 @@ class Deck {
         }
     }
 
+    // Method: Shuffle = this shuffles the deck
     shuffle() {
         for (let i = this.cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
         }
     }
-
+    
+    //Method: dealCards = This deals 26 cards from the deck
     dealCards() {
         return this.cards.splice(0, 26);
     }
@@ -34,16 +39,19 @@ class Deck {
 
 // Define Player class
 class Player {
+    // Properties = name, hand, and points
     constructor(name) {
         this.name = name;
         this.hand = [];
         this.points = 0;
     }
 
+    // Method: playCard = plays a card from the player's hand
     playCard() {
         return this.hand.pop();
     }
 
+    // Method: addPoints = adds points to the player's total
     addPoints(points) {
         this.points += points;
     }
@@ -51,18 +59,21 @@ class Player {
 
 // Define Game class
 class Game {
+    // Properties: player1, player2, and deck
     constructor(player1Name, player2Name) {
         this.player1 = new Player(player1Name);
         this.player2 = new Player(player2Name);
         this.deck = new Deck();
     }
 
+    // Method: initializeGame = initializes the game by shuffling the deck and dealing cards to the players
     initializeGame() {
         this.deck.shuffle();
         this.player1.hand = this.deck.dealCards();
         this.player2.hand = this.deck.dealCards();
     }
 
+    // Method: playRound = plays a round of the game, comparing the cards played by each player and updating points accordingly
     playRound() {
         const card1 = this.player1.playCard();
         const card2 = this.player2.playCard();
@@ -77,6 +88,7 @@ class Game {
         }
     }
 
+    // Method: getValue = gives the numerical value of a card
     getValue(value) {
         const values = {
             '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
@@ -85,6 +97,7 @@ class Game {
         return values[value];
     }
 
+    // Method: playGame = initiates and plays the entire game
     playGame() {
         this.initializeGame();
         for (let i = 0; i < 26; i++) {
@@ -93,6 +106,7 @@ class Game {
         this.declareWinner();
     }
 
+    // Method: declareWinner = declares the winner of the game based on total points accumulated by each player
     declareWinner() {
         if (this.player1.points > this.player2.points) {
             console.log(`${this.player1.name} wins with ${this.player1.points} points!`);
