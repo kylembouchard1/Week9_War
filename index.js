@@ -106,7 +106,7 @@ class Game {
         this.declareWinner();
     }
 
-    // Method: declareWinner = declares the winner of the game based on total points accumulated by each player
+    // Method: declareWinner = declares the winner of the game based on total points accumulated by each player and console.logs whether player1 or player2 wins and with how many points or if the game results in a tie.
     declareWinner() {
         if (this.player1.points > this.player2.points) {
             console.log(`${this.player1.name} wins with ${this.player1.points} points!`);
